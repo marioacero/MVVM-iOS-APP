@@ -22,12 +22,27 @@
 		03BE69E8200C1C0A00744EDB /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BE69E7200C1C0A00744EDB /* BaseViewModel.swift */; };
 		03BE69EB200C33D800744EDB /* BaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BE69EA200C33D800744EDB /* BaseService.swift */; };
 		03BE69EE200C342000744EDB /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03BE69ED200C342000744EDB /* Alamofire.framework */; };
+		03BE69F0200C3A1D00744EDB /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 03BE69ED200C342000744EDB /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		03E8E846200B0B06000965D5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E8E845200B0B06000965D5 /* AppDelegate.swift */; };
 		03E8E848200B0B06000965D5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E8E847200B0B06000965D5 /* ViewController.swift */; };
 		03E8E84B200B0B06000965D5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 03E8E849200B0B06000965D5 /* Main.storyboard */; };
 		03E8E84D200B0B06000965D5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03E8E84C200B0B06000965D5 /* Assets.xcassets */; };
 		03E8E850200B0B06000965D5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 03E8E84E200B0B06000965D5 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		03BE69F1200C3A1D00744EDB /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				03BE69F0200C3A1D00744EDB /* Alamofire.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		03380923200C09AD004ED423 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
@@ -208,6 +223,7 @@
 				03E8E83E200B0B06000965D5 /* Sources */,
 				03E8E83F200B0B06000965D5 /* Frameworks */,
 				03E8E840200B0B06000965D5 /* Resources */,
+				03BE69F1200C3A1D00744EDB /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
