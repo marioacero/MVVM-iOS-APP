@@ -19,12 +19,3 @@ enum CategoryType{
     case Movies
     case TvShows
 }
-
-
-
-class BaseViewModel {
- 
-    func fetchData( categoryType: CategoryType, listType: ListType, page:Int, completion: @escaping () -> () ) {
-        
-    }
-}

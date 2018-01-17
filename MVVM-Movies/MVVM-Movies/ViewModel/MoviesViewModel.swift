@@ -8,9 +8,25 @@
 
 import Foundation
 
-class MoviesViewModel: BaseViewModel {
+class MoviesViewModel {
     
-    func getData( type: ListType, completion: @escaping () -> ()) {
-//        self.fetchData()
+    var repository: MoviesRepsository?
+    
+    init() {
+        repository = MoviesRepsository()
+    }
+    
+    func getMovies( type: ListType, completion: @escaping () -> ()) {
+        
+        guard let repo = repository else { return }
+        
+        repo.getMovies(listType: type, page: 0) { (response) in
+            switch response {
+            case .success(let result):
+                break
+            case.failure:
+                break
+            }
+        }
     }
 }

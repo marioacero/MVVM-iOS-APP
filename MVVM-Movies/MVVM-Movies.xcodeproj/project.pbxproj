@@ -16,6 +16,9 @@
 		03380934200C0CA6004ED423 /* MoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03380933200C0CA6004ED423 /* MoviesViewController.swift */; };
 		03380936200C0CB3004ED423 /* TvShowsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03380935200C0CB3004ED423 /* TvShowsViewController.swift */; };
 		03380938200C0CDD004ED423 /* TvShows.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 03380937200C0CDD004ED423 /* TvShows.storyboard */; };
+		038C2840200EBBC000E9E708 /* MoviesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038C283F200EBBC000E9E708 /* MoviesRepository.swift */; };
+		038C2842200EBDF400E9E708 /* EndPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038C2841200EBDF400E9E708 /* EndPoints.swift */; };
+		038C2844200EC4FC00E9E708 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038C2843200EC4FC00E9E708 /* Item.swift */; };
 		03BE69E0200C145700744EDB /* MoviesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BE69DF200C145700744EDB /* MoviesViewModel.swift */; };
 		03BE69E5200C158500744EDB /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BE69E3200C158500744EDB /* CustomCell.swift */; };
 		03BE69E6200C158500744EDB /* CustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03BE69E4200C158500744EDB /* CustomCell.xib */; };
@@ -54,6 +57,9 @@
 		03380933200C0CA6004ED423 /* MoviesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesViewController.swift; sourceTree = "<group>"; };
 		03380935200C0CB3004ED423 /* TvShowsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TvShowsViewController.swift; sourceTree = "<group>"; };
 		03380937200C0CDD004ED423 /* TvShows.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TvShows.storyboard; sourceTree = "<group>"; };
+		038C283F200EBBC000E9E708 /* MoviesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesRepository.swift; sourceTree = "<group>"; };
+		038C2841200EBDF400E9E708 /* EndPoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoints.swift; sourceTree = "<group>"; };
+		038C2843200EC4FC00E9E708 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		03BE69DF200C145700744EDB /* MoviesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesViewModel.swift; sourceTree = "<group>"; };
 		03BE69E3200C158500744EDB /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		03BE69E4200C158500744EDB /* CustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomCell.xib; sourceTree = "<group>"; };
@@ -140,6 +146,31 @@
 			path = TvShows;
 			sourceTree = "<group>";
 		};
+		038C283C200EBAC900E9E708 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				038C283E200EBAFA00E9E708 /* Repsotory */,
+				038C283D200EBAF300E9E708 /* Models */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		038C283D200EBAF300E9E708 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				038C2843200EC4FC00E9E708 /* Item.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		038C283E200EBAFA00E9E708 /* Repsotory */ = {
+			isa = PBXGroup;
+			children = (
+				038C283F200EBBC000E9E708 /* MoviesRepository.swift */,
+			);
+			path = Repsotory;
+			sourceTree = "<group>";
+		};
 		03BE69DE200C142800744EDB /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -170,6 +201,7 @@
 			isa = PBXGroup;
 			children = (
 				03BE69EA200C33D800744EDB /* BaseService.swift */,
+				038C2841200EBDF400E9E708 /* EndPoints.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -202,13 +234,14 @@
 		03E8E844200B0B06000965D5 /* MVVM-Movies */ = {
 			isa = PBXGroup;
 			children = (
-				03BE69E9200C33B700744EDB /* Services */,
-				03BE69DE200C142800744EDB /* ViewModel */,
-				0338092E200C0C01004ED423 /* View */,
-				0338092B200C0B2D004ED423 /* Common */,
-				03380921200C0962004ED423 /* App */,
-				03E8E847200B0B06000965D5 /* ViewController.swift */,
 				03E8E851200B0B06000965D5 /* Info.plist */,
+				03E8E847200B0B06000965D5 /* ViewController.swift */,
+				03380921200C0962004ED423 /* App */,
+				0338092B200C0B2D004ED423 /* Common */,
+				038C283C200EBAC900E9E708 /* Model */,
+				03BE69E9200C33B700744EDB /* Services */,
+				0338092E200C0C01004ED423 /* View */,
+				03BE69DE200C142800744EDB /* ViewModel */,
 			);
 			path = "MVVM-Movies";
 			sourceTree = "<group>";
@@ -290,6 +323,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				038C2840200EBBC000E9E708 /* MoviesRepository.swift in Sources */,
 				03E8E848200B0B06000965D5 /* ViewController.swift in Sources */,
 				03BE69E8200C1C0A00744EDB /* BaseViewModel.swift in Sources */,
 				0338092D200C0B66004ED423 /* NSObjectExtension.swift in Sources */,
@@ -299,6 +333,8 @@
 				03BE69E0200C145700744EDB /* MoviesViewModel.swift in Sources */,
 				03380928200C09D0004ED423 /* TabBarItem.swift in Sources */,
 				03BE69EB200C33D800744EDB /* BaseService.swift in Sources */,
+				038C2844200EC4FC00E9E708 /* Item.swift in Sources */,
+				038C2842200EBDF400E9E708 /* EndPoints.swift in Sources */,
 				03E8E846200B0B06000965D5 /* AppDelegate.swift in Sources */,
 				03380934200C0CA6004ED423 /* MoviesViewController.swift in Sources */,
 				0338092A200C0AAF004ED423 /* AppConstants.swift in Sources */,

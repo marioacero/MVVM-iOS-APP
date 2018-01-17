@@ -33,16 +33,76 @@ class BaseService {
         switch method {
         case .post:
             dataRequest = request(url, method: method, parameters: params, encoding: JSONEncoding.default, headers: headers).responseString { (response) in
-                
+                self.serializeResponse(response: response, completion: completion)
+                self.sessionManager.removeValue(forKey: url)
             }
         default:
             dataRequest = request(url, method: method, parameters: params, headers: headers).responseString { (response) in
-                
+                self.serializeResponse(response: response, completion: completion)
+                self.sessionManager.removeValue(forKey: url)
             }
         }
     }
     
-    func serializeResponse(response: Alamofire.DataResponse<String>, completion: @escaping (ServiceResponse) -> Void) {
+    func serializeResponse(response: Alamofire.DataResponse<String>,  completion: @escaping (ServiceResponse) -> Void) {
         
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            
+            guard let strongSelf = self else { return }
+            
+            var json: Any?
+            guard let urlResponse = response.response else {
+                if let error = response.result.error as NSError?, error.code == NSURLErrorNotConnectedToInternet {
+                    strongSelf.notConnectedToInternet(completion: completion)
+                } else {
+                    strongSelf.failure(completion: completion)
+                }
+                return
+            }
+            
+            if let data = response.result.value?.data(using: String.Encoding.utf8) {
+                do {
+                    json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String:AnyObject]
+                } catch {
+                    if urlResponse.statusCode == ResponseStatusCode.success.rawValue {
+                        strongSelf.success(result: [], headers: urlResponse.allHeaderFields, completion: completion)
+                    } else {
+                        strongSelf.failure(completion: completion)
+                    }
+                    return
+                }
+            }
+            
+            guard let jsonResponse = json as? JsonDictionay else {
+                strongSelf.failure(completion: completion)
+                return
+            }
+            
+            if jsonResponse["success"] as? Bool == false {
+                strongSelf.failure(completion: completion)
+                return
+            }
+            
+            strongSelf.success(result:jsonResponse , headers: urlResponse.allHeaderFields, completion: completion)
+        }
+    }
+    
+    func cancelAllRequests () {
+        for dataRequest in self.dataRequestArray {
+            dataRequest.cancel()
+        }
+        self.dataRequestArray.removeAll()
+    }
+    
+    func notConnectedToInternet (completion:@escaping (ServiceResponse) -> Void) {
+        completion(.notConnectedToInternet)
+    }
+    
+    func failure (completion:@escaping (ServiceResponse) -> Void) {
+        completion(.failure)
+    }
+    
+    func success (result: Any?, headers: [AnyHashable: Any], completion:@escaping (ServiceResponse) -> Void) {
+        completion(.success(response: result as Any))
     }
 }

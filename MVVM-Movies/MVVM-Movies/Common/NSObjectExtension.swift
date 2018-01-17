@@ -26,3 +26,9 @@ extension UITableView {
         register(cellNib, forCellReuseIdentifier: nibName)
     }
 }
+
+
+protocol CreateFromArray {
+    
+    init?(json: JsonDictionay )
+}

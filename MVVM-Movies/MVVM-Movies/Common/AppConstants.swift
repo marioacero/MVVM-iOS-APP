@@ -10,6 +10,13 @@ import Foundation
 
 struct AppConstants {
     
+    static let protocolo    : String = "https://"
+    static let apiVersion   : String = "/3"
+    static let domain       : String = "api.themoviedb.org"
+    static let domainImage  : String = "https://image.tmdb.org/t/p/"
+    static let apiKey       : String = "b42de0d7051793f886f6c0569505a420"
+    static let baseUrl      : String = AppConstants.protocolo + AppConstants.domain + AppConstants.apiVersion
+     
     struct TabBarItems {
         
         struct  Movies {
