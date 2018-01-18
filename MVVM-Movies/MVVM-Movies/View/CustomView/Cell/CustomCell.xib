@@ -9,6 +9,11 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="HelveticaNeueExtras.ttc">
+            <string>HelveticaNeue-CondensedBold</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -20,11 +25,11 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DAB-lo-HyP">
-                        <rect key="frame" x="8" y="8" width="42" height="21"/>
+                        <rect key="frame" x="8" y="8" width="304" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="liV-7c-dax"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -44,21 +49,36 @@
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
+                        <connections>
+                            <outlet property="dataSource" destination="KGk-i7-Jjw" id="Uq4-vT-ON8"/>
+                            <outlet property="delegate" destination="KGk-i7-Jjw" id="rnt-74-RHI"/>
+                        </connections>
                     </collectionView>
+                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Gje-oZ-Hfe">
+                        <rect key="frame" x="150" y="125" width="20" height="20"/>
+                    </activityIndicatorView>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="e37-6y-UwP" secondAttribute="trailing" id="4aO-PM-UQU"/>
+                    <constraint firstItem="DAB-lo-HyP" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="7dL-SA-LnL"/>
                     <constraint firstItem="e37-6y-UwP" firstAttribute="top" secondItem="DAB-lo-HyP" secondAttribute="bottom" constant="8" id="ETc-gK-lSz"/>
                     <constraint firstAttribute="trailing" secondItem="3Hv-0x-Whh" secondAttribute="trailing" id="G7o-GK-vEP"/>
                     <constraint firstItem="3Hv-0x-Whh" firstAttribute="top" secondItem="e37-6y-UwP" secondAttribute="bottom" id="QCN-DW-yW3"/>
                     <constraint firstItem="DAB-lo-HyP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="WZe-0V-kg8"/>
                     <constraint firstItem="DAB-lo-HyP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="cqn-QW-iZO"/>
                     <constraint firstAttribute="bottom" secondItem="3Hv-0x-Whh" secondAttribute="bottom" id="fe4-el-EgU"/>
+                    <constraint firstItem="Gje-oZ-Hfe" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="p1y-Ip-gO8"/>
                     <constraint firstItem="3Hv-0x-Whh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="phh-U1-iX4"/>
                     <constraint firstItem="e37-6y-UwP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="poe-XG-vez"/>
+                    <constraint firstItem="Gje-oZ-Hfe" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="tE1-WS-YZp"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="activityIndicator" destination="Gje-oZ-Hfe" id="93K-vv-2t0"/>
+                <outlet property="itemsCollection" destination="e37-6y-UwP" id="AnW-qV-KBJ"/>
+                <outlet property="titleCategory" destination="DAB-lo-HyP" id="R9Q-YP-000"/>
+            </connections>
         </tableViewCell>
     </objects>
 </document>

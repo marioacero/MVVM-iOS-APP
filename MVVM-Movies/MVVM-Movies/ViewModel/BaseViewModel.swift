@@ -8,9 +8,9 @@
 
 import Foundation
 
-enum ListType{
+enum ListType: String{
     case Popular
-    case TopRate
+    case TopRate = "Top Rate"
     case Upcoming
 }
 

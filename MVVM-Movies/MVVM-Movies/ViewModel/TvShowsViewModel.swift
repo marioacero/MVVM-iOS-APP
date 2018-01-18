@@ -1,29 +1,28 @@
 //
-//  MoviesViewModel.swift
+//  TvShowsViewModel.swift
 //  MVVM-Movies
 //
-//  Created by Mario Acero on 1/14/18.
+//  Created by Mario Acero on 1/17/18.
 //  Copyright © 2018 Mario Acero. All rights reserved.
 //
 
 import Foundation
-import UIKit
 
-class MoviesViewModel {
+class TvShowViewModel {
     
-    var repository: MoviesRepsository?
+    var repository: TvShowsRepsository?
     var popularItems:ItemsObjectList?
     var topRateItems:ItemsObjectList?
     var upcomingItems:ItemsObjectList?
     
     init() {
-        repository = MoviesRepsository()
+        repository = TvShowsRepsository()
     }
     
-    func getMovies( type: ListType, completion: @escaping () -> ()) {
+    func getTvShows( type: ListType, completion: @escaping () -> ()) {
         guard let repo = repository else { return }
         
-        repo.getMovies(listType: type, page: 0) { [weak self](response) in
+        repo.getTvShows(listType: type, page: 0) { [weak self](response) in
             guard let strongSelf = self else { return }
             
             switch response {

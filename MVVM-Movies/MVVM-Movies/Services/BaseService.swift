@@ -12,7 +12,7 @@ import Alamofire
 typealias JsonDictionay = [String : Any]
 
 enum ServiceResponse {
-    case success(response: Any)
+    case success(response: JsonDictionay)
     case failure
     case notConnectedToInternet
 }
@@ -26,8 +26,9 @@ class BaseService {
     var dataRequestArray: [DataRequest] = []
     var sessionManager: [String : Alamofire.SessionManager] = [:]
     
-    func callEndPoint(url: String, method: Alamofire.HTTPMethod = .get, headers: [String:String]? = [:], params: JsonDictionay? = [:], completion: @escaping (ServiceResponse) -> Void){
+    func callEndPoint(endPoint: String, method: Alamofire.HTTPMethod = .get, headers: [String:String]? = [:], params: JsonDictionay? = [:], completion: @escaping (ServiceResponse) -> Void){
         
+        let url = AppConstants.baseUrl + endPoint + AppConstants.keyPath + AppConstants.apiKey
         let dataRequest: DataRequest?
         
         switch method {
@@ -64,11 +65,7 @@ class BaseService {
                 do {
                     json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String:AnyObject]
                 } catch {
-                    if urlResponse.statusCode == ResponseStatusCode.success.rawValue {
-                        strongSelf.success(result: [], headers: urlResponse.allHeaderFields, completion: completion)
-                    } else {
-                        strongSelf.failure(completion: completion)
-                    }
+                    strongSelf.failure(completion: completion)
                     return
                 }
             }
@@ -102,7 +99,7 @@ class BaseService {
         completion(.failure)
     }
     
-    func success (result: Any?, headers: [AnyHashable: Any], completion:@escaping (ServiceResponse) -> Void) {
-        completion(.success(response: result as Any))
+    func success (result: JsonDictionay?, headers: [AnyHashable: Any], completion:@escaping (ServiceResponse) -> Void) {
+        completion(.success(response: result!))
     }
 }

@@ -9,16 +9,55 @@
 import UIKit
 
 class CustomCell: UITableViewCell {
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    //MARK: Properties
+    var row    : Int!
+    var arrayItems: [ItemObject]?{
+        didSet{
+            itemsCollection.reloadData()
+        }
     }
     
+    //MARK: @IBOutlets
+    @IBOutlet weak var itemsCollection: UICollectionView!
+    @IBOutlet weak var titleCategory: UILabel!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        setCollection()
+    }
+
+    func setCollection() {
+        itemsCollection?.registerNib(ItemsCollectionViewCell.stringRepresentation)
+        let layout:UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        layout.scrollDirection  = .horizontal
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        itemsCollection.setCollectionViewLayout(layout, animated: true)
+    }
+    
+}
+
+extension CustomCell: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return arrayItems?.count ?? 0
+    }
+    
+    ///Custom cell for collection view , show data
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ItemsCollectionViewCell.stringRepresentation, for: indexPath) as! ItemsCollectionViewCell
+        let row = arrayItems?[indexPath.row]
+        cell.itemTitle.text = row?.title == "" ? row?.name : row?.title
+        ImageLoader.getImagen(name: row!.poster_path, imageView:  cell.itemImage , round: false, width: 300, height: 400)
+        activityIndicator.stopAnimating()
+        return cell
+    }
+}
+
+extension CustomCell: UICollectionViewDelegateFlowLayout {
+    ///Set  size of the cell for collection
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 140, height: 220)
+    }
 }

@@ -10,26 +10,51 @@ import UIKit
 
 class TvShowsViewController: UIViewController {
 
+    @IBOutlet weak var tableView: UITableView!
+    
+    var viewModel = TvShowViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        viewModel.getTvShows(type: .Popular) {
+            let indexPath = IndexPath(item: AppConstants.Movies.popularRow, section: AppConstants.Movies.section)
+            DispatchQueue.main.async {
+                self.tableView.reloadRows(at: [indexPath], with: .fade)
+            }
+        }
+        viewModel.getTvShows(type: .TopRate) {
+            let indexPath = IndexPath(item: AppConstants.Movies.topRateRow, section: AppConstants.Movies.section)
+            DispatchQueue.main.async {
+                self.tableView.reloadRows(at: [indexPath], with: .fade)
+            }
+        }
+        viewModel.getTvShows(type: .Upcoming) {
+            let indexPath = IndexPath(item: AppConstants.Movies.upcomingRow, section: AppConstants.Movies.section)
+            DispatchQueue.main.async {
+                self.tableView.reloadRows(at: [indexPath], with: .fade)
+            }
+        }
     }
+}
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+extension TvShowsViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: CustomCell.stringRepresentation) as! CustomCell
+        viewModel.setTableViewCell(cell: cell, indexPath: indexPath)
+        return cell
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return  AppConstants.Movies.numberOfRows
     }
-    */
-
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return AppConstants.Movies.numberOfSections
+    }
+    
+    //MARK: - UITableViewDelegate
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return CGFloat(AppConstants.Movies.heightForRow)
+    }
 }

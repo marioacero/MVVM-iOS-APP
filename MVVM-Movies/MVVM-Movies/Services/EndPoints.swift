@@ -21,5 +21,3 @@ enum TvShowsEndPoint: String {
     case getTopRatesTv = "/tv/top_rated?"
     case getUpcomingsTv = "/tv/airing_today?"
 }
-
-
