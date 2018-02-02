@@ -27,8 +27,30 @@ class CustomCell: UITableViewCell {
         super.awakeFromNib()
         setCollection()
     }
-
-    func setCollection() {
+    
+    func configure(whitViewModel dataItems:[ItemsObjectList], row: Int) {
+        for item in dataItems {
+            switch row {
+            case 0:
+                if item.itemType == .Popular {
+                    arrayItems = item.results
+                    titleCategory.text = item.itemType?.rawValue
+                }
+            case 1:
+                if item.itemType == .TopRate {
+                    arrayItems = item.results
+                    titleCategory.text = item.itemType?.rawValue
+                }
+            default :
+                if item.itemType == .Upcoming {
+                    arrayItems = item.results
+                    titleCategory.text = item.itemType?.rawValue
+                }
+            }
+        }
+    }
+    
+    private func setCollection() {
         itemsCollection?.registerNib(ItemsCollectionViewCell.stringRepresentation)
         let layout:UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.scrollDirection  = .horizontal

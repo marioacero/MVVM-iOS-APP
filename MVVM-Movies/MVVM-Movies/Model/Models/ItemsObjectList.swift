@@ -20,6 +20,7 @@ struct ItemsObjectList {
     ///All movies or tv shows in the section and page
     var results        : [ItemObject]
     
+    var itemType       : ListType?
     /**
      Receive parameters for initializer the struct from api
      - Parameter total_pages

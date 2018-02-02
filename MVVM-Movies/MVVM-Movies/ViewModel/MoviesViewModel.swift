@@ -10,10 +10,8 @@ import Foundation
 
 class MoviesViewModel {
     
+    var dataItems:[ItemsObjectList] = []
     var repository: MoviesRepsository?
-    var popularItems:ItemsObjectList?
-    var topRateItems:ItemsObjectList?
-    var upcomingItems:ItemsObjectList?
     
     init() {
         repository = MoviesRepsository()
@@ -26,41 +24,13 @@ class MoviesViewModel {
             guard let strongSelf = self else { return }
             
             switch response {
-            case .success(let result):
-                strongSelf.handleSucces(result: result, type: type, completion: completion)
+            case .success(var result):
+                result.itemType = type
+                strongSelf.dataItems.append(result)
             case.failure:
                 break
             }
-        }
-    }
-    
-    private func handleSucces(result: ItemsObjectList, type: ListType, completion: @escaping () -> ()) {
-        switch type {
-        case .Popular:
-            self.popularItems = result
             completion()
-        case .TopRate:
-            self.topRateItems = result
-            completion()
-        case .Upcoming:
-            self.upcomingItems = result
-            completion()
-        }
-    }
-    
-    func setTableViewCell(cell: CustomCell,  indexPath: IndexPath){
-        switch indexPath.row {
-        case 0:
-            cell.arrayItems  = popularItems?.results
-            cell.titleCategory.text = ListType.Popular.rawValue
-        case 1:
-            cell.arrayItems  = topRateItems?.results
-            cell.titleCategory.text = ListType.TopRate.rawValue
-        case 2:
-            cell.arrayItems  = upcomingItems?.results
-            cell.titleCategory.text = ListType.Upcoming.rawValue
-        default:
-            break
         }
     }
 }
