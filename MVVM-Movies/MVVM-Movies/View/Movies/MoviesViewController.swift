@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MoviesViewController: UIViewController {
+class MoviesViewController: UIViewController, ViewModelDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -16,23 +16,15 @@ class MoviesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.getMovies(type: .Popular) {
-            let indexPath = IndexPath(item: AppConstants.Movies.popularRow, section: AppConstants.Movies.section)
-            DispatchQueue.main.async {
-                self.tableView.reloadRows(at: [indexPath], with: .fade)
-            }
-        }
-        viewModel.getMovies(type: .TopRate) {
-            let indexPath = IndexPath(item: AppConstants.Movies.topRateRow, section: AppConstants.Movies.section)
-            DispatchQueue.main.async {
-                self.tableView.reloadRows(at: [indexPath], with: .fade)
-            }
-        }
-        viewModel.getMovies(type: .Upcoming) {
-            let indexPath = IndexPath(item: AppConstants.Movies.upcomingRow, section: AppConstants.Movies.section)
-            DispatchQueue.main.async {
-                self.tableView.reloadRows(at: [indexPath], with: .fade)
-            }
+        viewModel.delegate = self
+        viewModel.getMovies(type: .Popular)
+        viewModel.getMovies(type: .TopRate)
+        viewModel.getMovies(type: .Upcoming)
+    }
+    
+    func reloadTable(type: Int) {
+        DispatchQueue.main.sync {
+            self.tableView.reloadRows(at: [IndexPath(row: type, section: 0)], with: .fade)
         }
     }
 }
@@ -41,7 +33,10 @@ extension MoviesViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CustomCell.stringRepresentation) as! CustomCell
-        cell.configure(whitViewModel: viewModel.dataItems, row: indexPath.row)
+        if viewModel.dataItems.count > 0 {
+            let dataItems = viewModel.dataItems[indexPath.row]
+            cell.configure(whitViewModel: dataItems, row: indexPath.row)
+        }
         return cell
     }
     

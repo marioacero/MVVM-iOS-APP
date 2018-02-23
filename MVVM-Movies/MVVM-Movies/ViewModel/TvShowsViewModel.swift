@@ -12,12 +12,13 @@ class TvShowViewModel {
     
     var dataItems:[ItemsObjectList] = []
     var repository: TvShowsRepsository?
+    weak var delegate: ViewModelDelegate?
     
     init() {
         repository = TvShowsRepsository()
     }
     
-    func getTvShows( type: ListType, completion: @escaping () -> ()) {
+    func getTvShows( type: ListType) {
         guard let repo = repository else { return }
         
         repo.getTvShows(listType: type, page: 0) { [weak self](response) in
@@ -27,10 +28,10 @@ class TvShowViewModel {
             case .success(var result):
                 result.itemType = type
                 strongSelf.dataItems.append(result)
+                strongSelf.delegate?.reloadTable(type: strongSelf.dataItems.count - 1)
             case.failure:
                 break
             }
-            completion()
         }
     }
 }

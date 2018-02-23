@@ -28,26 +28,9 @@ class CustomCell: UITableViewCell {
         setCollection()
     }
     
-    func configure(whitViewModel dataItems:[ItemsObjectList], row: Int) {
-        for item in dataItems {
-            switch row {
-            case 0:
-                if item.itemType == .Popular {
-                    arrayItems = item.results
-                    titleCategory.text = item.itemType?.rawValue
-                }
-            case 1:
-                if item.itemType == .TopRate {
-                    arrayItems = item.results
-                    titleCategory.text = item.itemType?.rawValue
-                }
-            default :
-                if item.itemType == .Upcoming {
-                    arrayItems = item.results
-                    titleCategory.text = item.itemType?.rawValue
-                }
-            }
-        }
+    func configure(whitViewModel dataItems:ItemsObjectList, row: Int) {
+        arrayItems = dataItems.results
+        titleCategory.text = dataItems.itemType?.rawValue
     }
     
     private func setCollection() {
@@ -71,7 +54,11 @@ extension CustomCell: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ItemsCollectionViewCell.stringRepresentation, for: indexPath) as! ItemsCollectionViewCell
         let row = arrayItems?[indexPath.row]
         cell.itemTitle.text = row?.title == "" ? row?.name : row?.title
-        ImageLoader.getImagen(name: row!.poster_path, imageView:  cell.itemImage , round: false, width: 300, height: 400)
+        cell.itemImage.isHidden = true
+        ImageLoader.getImagen(name: row!.poster_path, round: false, width: 300, height: 400, completion: { (image) in
+            cell.itemImage.image = image
+            cell.itemImage.isHidden = false
+        })
         activityIndicator.stopAnimating()
         return cell
     }
